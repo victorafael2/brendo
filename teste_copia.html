@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clipboard API Test</title>
+</head>
+<body>
+  <input type="text" id="textToCopy" value="Texto a ser copiado">
+  <button id="copyButton">Copiar para clipboard</button>
+
+  <script>
+    document.getElementById('copyButton').addEventListener('click', function() {
+      var text = document.getElementById('textToCopy').value;
+      navigator.clipboard.writeText(text).then(function() {
+        console.log('Texto copiado para o clipboard com sucesso!');
+      }).catch(function(err) {
+        console.error('Falha ao copiar texto: ', err);
+      });
+    });
+  </script>
+</body>
+</html>
