@@ -53,7 +53,7 @@
             <div class="container">
                 <a class="navbar-brand" href="#">
                     <img src="https://png.pngtree.com/png-clipart/20220719/original/pngtree-task-list-png-image_8368036.png" alt="Logo" height="30px">
-                    Brendo
+                    Busca de Resoluções ANS
                 </a>
                 <!-- Botão de Modo Noturno -->
                 <button class="navbar-toggler modo-noturno" id="modoNoturnoBtn" type="button" onclick="toggleDarkMode()">
