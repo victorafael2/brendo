@@ -98,7 +98,7 @@
         <!-- Tabela para exibir valores do segundo select -->
         <div id="tabelaValoresSelecionados" class="mt-4 p-3 card table-responsive">
             <h4>Valores Selecionados</h4>
-            <table class="table ">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -117,7 +117,7 @@
 
         <!-- Tabela para exibir valores salvos -->
         <div id="tabelaValoresSalvos" class="mt-4 p-3 card table-responsive fw-lighter">
-            <h5>Historico de Consultas</h4>
+            <h5>Historico de Consultas</h5>
             <table class="table">
                 <thead>
                     <tr>
@@ -208,32 +208,28 @@
             });
         }
 
-// Função para salvar valor clicado na tabela de valores salvos
-function salvarValor(valor, tabela22, ansResolucao, subgrupo) {
-    // Verificar se o valor já existe nos valores salvos
-    var valorExistente = valoresSalvos.find(function(item) {
-        return item.valor === valor && item.tabela22 === tabela22 && item.ansResolucao === ansResolucao && item.subgrupo === subgrupo;
-    });
+        // Função para salvar valor clicado na tabela de valores salvos
+        function salvarValor(valor, tabela22, ansResolucao, subgrupo) {
+            // Verificar se o valor já existe nos valores salvos
+            var valorExistente = valoresSalvos.find(function(item) {
+                return item.valor === valor && item.tabela22 === tabela22 && item.ansResolucao === ansResolucao && item.subgrupo === subgrupo;
+            });
 
-    if (!valorExistente) {
-        var novoItem = {
-            valor: valor,
-            tabela22: tabela22,
-            ansResolucao: ansResolucao,
-            subgrupo: subgrupo
-        };
+            if (!valorExistente) {
+                var novoItem = {
+                    valor: valor,
+                    tabela22: tabela22,
+                    ansResolucao: ansResolucao,
+                    subgrupo: subgrupo
+                };
 
-        valoresSalvos.push(novoItem);
-        localStorage.setItem('valoresSalvos', JSON.stringify(valoresSalvos));
-
-        // Atualizar a tabela de valores salvos
-        atualizarTabelaValoresSalvos();
-    } else {
-
-
-    }
-}
-
+                valoresSalvos.push(novoItem);
+                localStorage.setItem('valoresSalvos', JSON.stringify(valoresSalvos));
+                atualizarTabelaValoresSalvos();
+            } else {
+                alert('Este valor já foi salvo.');
+            }
+        }
 
         // Função para atualizar a tabela de valores salvos
         function atualizarTabelaValoresSalvos() {
@@ -241,93 +237,68 @@ function salvarValor(valor, tabela22, ansResolucao, subgrupo) {
             corpoTabelaValoresSalvos.empty();
 
             valoresSalvos.forEach(function(item, index) {
-                var newRow = '<tr>' +
-                    '<td >' + (index + 1) + '</td>' +
-                    '<td class="valor-copiar">' + item.valor + '</td>' +
+                var linha = '<tr>' +
+                    '<td>' + (index + 1) + '</td>' +
+                    '<td>' + item.valor + '</td>' +
                     '<td>' + item.tabela22 + '</td>' +
                     '<td>' + item.ansResolucao + '</td>' +
                     '<td>' + item.subgrupo + '</td>' +
                     '</tr>';
-                corpoTabelaValoresSalvos.append(newRow);
+                corpoTabelaValoresSalvos.append(linha);
             });
         }
 
-        // Copiar valor para área de transferência ao clicar
-        $(document).on('click', '.valor-copiar', function() {
-            var valor = $(this).text().trim();
-            navigator.clipboard.writeText(valor)
-                .then(function() {
-                    // Alerta utilizando SweetAlert2 para uma aparência mais bonita
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Valor Copiado!',
-                        text: 'O valor foi copiado para a área de transferência: ' + valor,
-                        timer: 1500, // Tempo em milissegundos (1.5 segundos)
-                        timerProgressBar: true,
-                        showConfirmButton: false
-                    });
-                })
-                .catch(function(err) {
-                    console.error('Erro ao copiar valor:', err);
-                    // Alerta de erro padrão se houver um problema
-                    alert('Erro ao copiar valor: ' + err.message);
-                });
-        });
-
-        // Função para alternar entre Modo Claro e Modo Escuro
+        // Função para inicializar o modo noturno
         function toggleDarkMode() {
-            var body = document.body;
-            var modoIcone = document.getElementById('modoIcone');
-            if (body.classList.contains('modo-noturno')) {
-                body.classList.remove('modo-noturno');
-                modoIcone.classList.remove('fa-moon');
-                modoIcone.classList.add('fa-sun');
+            document.body.classList.toggle("modo-noturno");
+            var modoIcone = document.getElementById("modoIcone");
+            if (document.body.classList.contains("modo-noturno")) {
+                modoIcone.classList.remove("fa-sun");
+                modoIcone.classList.add("fa-moon");
             } else {
-                body.classList.add('modo-noturno');
-                modoIcone.classList.remove('fa-sun');
-                modoIcone.classList.add('fa-moon');
+                modoIcone.classList.remove("fa-moon");
+                modoIcone.classList.add("fa-sun");
             }
         }
 
-        // Evento de mudança no segundo select (selects adicionais)
-        $(document).on('change', '#segundoSelect', function() {
-            var valorSelecionado = $(this).val();
-            atualizarTabela(valorSelecionado);
-        });
+        // Função para copiar texto para a área de transferência
+        function copiarTexto(texto) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(texto).then(function() {
+                    console.log('Texto copiado para a área de transferência.');
+                }).catch(function(error) {
+                    console.error('Erro ao copiar texto:', error);
+                });
+            } else {
+                console.error('API Clipboard não está disponível.');
+            }
+        }
 
-        // Evento de inicialização do Select2 ao carregar a página
         $(document).ready(function() {
             inicializarSelect2();
+            atualizarTabelaValoresSalvos();
 
-            // Evento de seleção no Select2
-            $('#primeiroSelect').on('select2:select', function(e) {
-                var data = e.params.data;
-                var valorSelecionado = data.id; // Id do item selecionado
-                var tabela22 = data.tabela22; // Valor da coluna tabela22
-                var ansResolucao = data.ansResolucao; // Valor da coluna ansResolucao
-                var subgrupo = data.subgrupo; // Valor da coluna subgrupo
-
+            // Evento de mudança no primeiro select
+            $('#primeiroSelect').on('change', function() {
+                var valorSelecionado = $(this).val();
                 carregarSelectsAdicionais(valorSelecionado);
-                // Limpar a tabela de valores selecionados ao mudar o primeiro select
-                $('#corpoTabela').empty();
             });
 
-            // Evento de clique no botão Primary para alternar Modo Noturno
-            $('#btnModoNoturno').click(function() {
+            // Evento de clique no botão de modo noturno
+            $('#btnModoNoturno').on('click', function() {
                 toggleDarkMode();
             });
 
-            // Evento de clique em uma linha da tabela para salvar valor
-            $(document).on('click', '#corpoTabela tr', function() {
-                var valor = $(this).find('td:nth-child(2)').text().trim(); // Valor da segunda coluna (exemplo, ajuste conforme a sua tabela)
-                var tabela22 = $(this).find('td:nth-child(3)').text().trim(); // Valor da terceira coluna
-                var ansResolucao = $(this).find('td:nth-child(4)').text().trim(); // Valor da quarta coluna
-                var subgrupo = $(this).find('td:nth-child(5)').text().trim(); // Valor da quinta coluna
-                salvarValor(valor, tabela22, ansResolucao, subgrupo);
-            });
+            // Evento de clique na tabela para copiar texto
+            $('#corpoTabela').on('click', 'tr', function() {
+                var codigo = $(this).find('td:nth-child(2)').text();
+                var tabela22 = $(this).find('td:nth-child(3)').text();
+                var ansResolucao = $(this).find('td:nth-child(4)').text();
+                var subgrupo = $(this).find('td:nth-child(5)').text();
 
-            // Carregar valores salvos ao carregar a página
-            atualizarTabelaValoresSalvos();
+                copiarTexto(codigo + ' ' + tabela22 + ' ' + ansResolucao + ' ' + subgrupo);
+                salvarValor(codigo, tabela22, ansResolucao, subgrupo);
+            });
         });
     </script>
 </body>
