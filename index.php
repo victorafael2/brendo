@@ -84,54 +84,60 @@
 
     <!-- Conteúdo da página -->
     <div class="container mt-4">
-        <div class="h4 pb-2 mb-4 text-body-secondary border-bottom border-secondary">
-            Busca Tuss
-        </div>
-        <div class="form-group">
-            <label for="primeiroSelect">Selecionar Resolução ANS:</label>
-            <select class="form-control" id="primeiroSelect" name="primeiroSelect"></select>
-        </div>
+        <div class="row">
+            <!-- Filtros -->
+            <div class="col-md-4">
+                <div class="h4 pb-2 mb-4 text-body-secondary border-bottom border-secondary">
+                    Busca Tuss
+                </div>
+                <div class="form-group">
+                    <label for="primeiroSelect">Selecionar Resolução ANS:</label>
+                    <select class="form-control" id="primeiroSelect" name="primeiroSelect"></select>
+                </div>
 
-        <!-- Placeholder para exibir selects adicionais -->
-        <div id="selectsAdicionais" class="mt-4"></div>
+                <!-- Placeholder para exibir selects adicionais -->
+                <div id="selectsAdicionais" class="mt-4"></div>
 
-        <!-- Tabela para exibir valores do segundo select -->
-        <div id="tabelaValoresSelecionados" class="mt-4 p-3 card table-responsive">
-            <h4>Valores Selecionados</h4>
-            <table class="table ">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Código</th>
-                        <th>Tabela 22</th>
-                        <th>ANS Resolução</th>
-                        <th>Subgrupo</th>
-                        <th>Ação</th>
-                    </tr>
-                </thead>
-                <tbody id="corpoTabela">
-                    <!-- Linhas da tabela serão preenchidas dinamicamente -->
-                </tbody>
-            </table>
-        </div>
+                <div id="tabelaValoresSelecionados" class="mt-4 p-3 card table-responsive">
+                    <h4>Valores Selecionados</h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Código</th>
+                                <th>Tabela 22</th>
+                                <th>ANS Resolução</th>
+                                <th>Subgrupo</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpoTabela">
+                            <!-- Linhas da tabela serão preenchidas dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
 
-        <!-- Tabela para exibir valores salvos -->
-        <div id="tabelaValoresSalvos" class="mt-4 p-3 card table-responsive fw-lighter">
-            <h5>Historico de Consultas</h4>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Código</th>
-                        <th>Tabela 22</th>
-                        <th>ANS Resolução</th>
-                        <th>Subgrupo</th>
-                    </tr>
-                </thead>
-                <tbody id="corpoTabelaValoresSalvos">
-                    <!-- Linhas da tabela serão preenchidas dinamicamente -->
-                </tbody>
-            </table>
+                <div id="tabelaValoresSalvos" class="mt-4 p-3 card table-responsive fw-lighter">
+                    <h5>Histórico de Consultas</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Código</th>
+                                <th>Tabela 22</th>
+                                <th>ANS Resolução</th>
+                                <th>Subgrupo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpoTabelaValoresSalvos">
+                            <!-- Linhas da tabela serão preenchidas dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-8">
+            <iframe src="https://websolus.humanasaude.com.br/" width="100%" height="600" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
 
