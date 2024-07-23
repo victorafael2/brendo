@@ -71,7 +71,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Perfil do Usuário</a>
+                            <a class="nav-link" href="#">Perfil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Sair</a>
